@@ -15,6 +15,7 @@
         <module>ebook-admin</module>
         <module>ebook-service</module>
         <module>ebook-user</module>
+        <module>ebook-user</module>
     </modules>
 
     <dependencies>
