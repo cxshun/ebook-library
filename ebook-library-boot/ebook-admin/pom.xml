@@ -8,8 +8,21 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <version>1.0-SNAPSHOT</version>
 
     <artifactId>ebook-admin</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.shun</groupId>
+            <artifactId>ebook-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.shun</groupId>
+            <artifactId>ebook-user</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
