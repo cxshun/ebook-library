@@ -45,6 +45,6 @@ public class Privilege {
      * 是否删除，1-已删除，0-未删除
      */
     @TableLogic
-    private Integer deleted;
+    private Integer isDeleted;
 
 }

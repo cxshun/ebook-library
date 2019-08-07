@@ -42,6 +42,6 @@ public class Role {
      * 是否删除，1-已删除，0-有效
      */
     @TableLogic
-    private Integer deleted;
+    private Integer isDeleted;
 
 }

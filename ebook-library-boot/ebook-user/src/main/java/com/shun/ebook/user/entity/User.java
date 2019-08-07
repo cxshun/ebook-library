@@ -38,17 +38,17 @@ public class User {
      */
     private Integer active;
     /**
-     * 是否删除，1-已删除，0-有效
-     */
-    private Integer deleted;
-    /**
-     * createTime for record
+     * 创建时间
      */
     private Date createTime;
     /**
-     * updateTime for record
+     * 更新时间
+     */
+    private Date updateTime;
+    /**
+     * 是否删除，1-已删除，0-有效
      */
     @TableLogic
-    private Date updateTime;
+    private Integer isDeleted;
 
 }

@@ -39,6 +39,6 @@ public class RolePrivilege {
     /**
      * 是否删除，1-已删除，0-有效
      */
-    private Integer deleted;
+    private Integer isDeleted;
 
 }
