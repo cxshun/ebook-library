@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author chenxs(chenxs @ xiaopeng.com)——车联网基础平台
+ * @author cxshun@gmail.com
  * 2019-08-07 11-37
  **/
 @Service

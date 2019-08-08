@@ -6,15 +6,16 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author cxshun@gmail.com
- * 2019-08-07
+ * 2019-08-08 14-49
  **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddUserReq {
+public class UpdateUserReq {
 
+    private Long id;
     private String name;
-    private String password;
     private String email;
+    private String password;
 
 }

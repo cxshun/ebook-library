@@ -36,7 +36,7 @@ public class User {
     /**
      * 是否启用，1-启用，0-停用
      */
-    private Integer active;
+    private Integer isActive;
     /**
      * 创建时间
      */

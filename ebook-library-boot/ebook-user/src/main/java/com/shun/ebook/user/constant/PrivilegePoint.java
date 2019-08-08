@@ -3,7 +3,7 @@ package com.shun.ebook.user.constant;
 import lombok.Getter;
 
 /**
- * @author chenxs(chenxs @ xiaopeng.com)——车联网基础平台
+ * @author cxshun@gmail.com
  * 2019-08-07 10-26
  **/
 @Getter

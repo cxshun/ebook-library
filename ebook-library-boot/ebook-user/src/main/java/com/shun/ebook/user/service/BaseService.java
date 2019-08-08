@@ -2,12 +2,13 @@ package com.shun.ebook.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author chenxs(chenxs @ xiaopeng.com)——车联网基础平台
+ * @author cxshun@gmail.com
  * 2019-08-07 11-03
  **/
 public abstract class BaseService<T, IdType extends Serializable> {
@@ -52,6 +53,24 @@ public abstract class BaseService<T, IdType extends Serializable> {
      */
     public List<T> list(Wrapper<T> wrapper) {
         return getMapper().selectList(wrapper);
+    }
+
+    /**
+     * 根据条件，获取实体列表
+     * @param wrapper   条件实体
+     * @return  实体列表
+     */
+    public Page<T> list(Wrapper<T> wrapper, Integer page, Integer pageSize) {
+        return (Page<T>)getMapper().selectPage(new Page<T>(page, pageSize), wrapper);
+    }
+
+    /**
+     * 获取数量
+     * @param wrapper   条件实体
+     * @return  总数
+     */
+    public Integer count(Wrapper<T> wrapper) {
+        return getMapper().selectCount(wrapper);
     }
 
     /**
