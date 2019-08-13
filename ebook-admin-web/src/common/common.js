@@ -2,7 +2,7 @@
  * http请求callback处理
  * @param response  http响应体
  */
-var common = {
+export default {
     postCallback(response) {
         if (parseInt(response.code) !== 200) {
             this.$notify({
@@ -17,5 +17,6 @@ var common = {
                 duration: 3
             })
         }
-    }
+    },
+    url: "http://localhost:8080"
 };

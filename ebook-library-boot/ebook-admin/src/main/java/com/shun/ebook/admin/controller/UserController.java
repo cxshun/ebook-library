@@ -94,7 +94,8 @@ public class UserController {
      * @return  用户列表
      */
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public BaseListResp<User> list(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
+    public BaseListResp<User> list(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                   @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize) {
         Page<User> pager = userService.list(new QueryWrapper<>(), page, pageSize);
         return new BaseListResp<>(pager.getRecords(), new PageInfo(pager.getTotal(), page, pageSize));
     }
