@@ -9,17 +9,19 @@
                 <el-table-column prop="name" label="姓名"></el-table-column>
                 <el-table-column prop="email" label="邮箱"></el-table-column>
                 <el-table-column prop="isActive" label="是否有效" width="100"></el-table-column>
-                <el-table-column label="操作" width="200">
+                <el-table-column label="操作" width="250">
                     <template slot-scope="scope">
+                        <el-button @click="view(scope.row.id)" type="primary" size="small">编辑</el-button>
                         <el-button v-if="scope.row.isActive === 0" @click="activate(scope.row.id, 1)" type="primary" size="small">启用</el-button>
-                        <el-button v-else-if="scope.row.isActive === 1" @click="activate(scope.row.id, 0)" type="primary" size="small">禁用</el-button>
+                        <el-button v-else-if="scope.row.isActive === 1" @click="activate(scope.row.id, 0)" type="warning" size="small">禁用</el-button>
                         <el-button @click="del(scope.row.id)" type="danger" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </el-col>
 
-        <el-dialog title="新增用户" :visible.sync="dialogVisible">
+        <!--编辑弹窗-->
+        <el-dialog title="编辑用户" :visible.sync="dialogVisible">
             <el-form ref="user" :model="user" label-width="100px">
                 <el-form-item label="用户名称">
                     <el-input v-model="user.name" auto-complete="off" placeholder="请输入用户名"></el-input>
@@ -32,7 +34,7 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="save">保存</el-button>
+                <el-button @click="save()">保存</el-button>
                 <el-button @click="dialogVisible = false">取消</el-button>
             </div>
         </el-dialog>
@@ -58,7 +60,6 @@
         mounted() {
             this.$http.get(Common.url + '/admin/users').then((response) => {
                 this.userList = response.data.data.list;
-                console.log(this.userList);
             }).catch(response => Common.postCallback(response));
         },
         methods: {
@@ -69,11 +70,19 @@
                 }).then(response => Common.postCallback(response));
             },
             del(id) {
-                this.$http.delete(Common.url + "/admin/users/" + id).then((response => Common.postCallback(response)));
+                this.$confirm("确定要删除该用户吗?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }).then(() => {
+                    this.$http.delete(Common.url + "/admin/users/" + id).then((response => Common.postCallback(response)));
+                }).catch(() => {})
+            },
+            view() {
+                this.dialogVisible = true;
             },
             save() {
                 let user = this.user;
-                console.log(user);
                 this.$http.post(Common.url + "/admin/users", {
                     name: user.name,
                     password: user.password,

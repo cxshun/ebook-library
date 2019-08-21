@@ -1,14 +1,22 @@
 <template>
-    <el-table :data="roleList" style="width: 100%">
-        <el-table-column prop="id" label="ID" width="100"></el-table-column>
-        <el-table-column prop="name" label="名称" width="200"></el-table-column>
-        <el-table-column prop="desc" label="描述"></el-table-column>
-        <el-table-column label="操作" width="100">
-            <template>
-                <el-button @click="del(id)" type="text" size="small">删除</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
+    <el-row :gutter="20">
+        <el-col :span="1" :offset="19">
+            <el-button type="primary" size="large" @click="dialogVisible = true">添加用户</el-button>
+        </el-col>
+        <el-col>
+            <el-table :data="roleList" style="width: 100%">
+                <el-table-column prop="id" label="ID" width="100"></el-table-column>
+                <el-table-column prop="name" label="名称" width="200"></el-table-column>
+                <el-table-column prop="desc" label="描述"></el-table-column>
+                <el-table-column label="操作" width="150">
+                    <template slot-scope="scope">
+                        <el-button @click="view(scope.row.id)" type="primary" size="small">编辑</el-button>
+                        <el-button @click="del(scope.row.id)" type="danger" size="small">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-col>
+    </el-row>
 </template>
 
 <script type="text/javascript">
@@ -16,17 +24,27 @@
 
     export default {
         data() {
-            let roleList;
-            this.$http.get("/admin/roles").then((response) => {
-                roleList = response.data;
-            }).catch(response => Common.postCallback(response));
             return {
-                roleList: roleList
+                roleList: [{}]
             }
         },
+        mounted() {
+            this.$http.get("/admin/roles").then((response) => {
+                this.roleList = response.data;
+            }).catch(response => Common.postCallback(response));
+        },
         methods: {
+            save() {
+
+            },
             del(id) {
-                this.$http.delete("/admin/roles/" + id).then(response => Common.postCallback(response));
+                this.$confirm("确定要删除该角色", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }).then(() => {
+                    this.$http.delete("/admin/roles/" + id).then(response => Common.postCallback(response));
+                });
             }
         }
     }

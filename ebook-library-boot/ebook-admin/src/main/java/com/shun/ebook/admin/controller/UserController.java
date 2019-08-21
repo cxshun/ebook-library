@@ -51,7 +51,7 @@ public class UserController {
      * 更新用户信息
      * @param updateUserReq 更新信息
      */
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void update(@RequestBody UpdateUserReq updateUserReq) {
         Date date = new Date();
 
