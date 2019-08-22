@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author chenxs(chenxs @ xiaopeng.com)——车联网基础平台
+ * @author cxshun@gmail.com
  * 2019-08-13 15-24
  **/
 @Data

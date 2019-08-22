@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 
 /**
- * @author chenxs(chenxs @ xiaopeng.com)——车联网基础平台
+ * @author cxshun@gmail.com
  * 2019-08-13 15-25
  **/
 @Getter

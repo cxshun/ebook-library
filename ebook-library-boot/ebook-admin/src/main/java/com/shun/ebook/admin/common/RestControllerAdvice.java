@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * @author chenxs(chenxs @ xiaopeng.com)——车联网基础平台
+ * @author cxshun@gmail.com
  * 2019-08-12 18-12
  **/
 @Slf4j
