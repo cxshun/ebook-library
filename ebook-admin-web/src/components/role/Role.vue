@@ -10,13 +10,28 @@
                 <el-table-column prop="desc" label="描述"></el-table-column>
                 <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
-                        <el-button @click="view(scope.row.id)" type="primary" size="small">编辑</el-button>
+                        <el-button @click="view" type="primary" size="small">编辑</el-button>
                         <el-button @click="del(scope.row.id)" type="danger" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </el-col>
     </el-row>
+
+    <el-dialog :visible.sync="dialogVisible">
+        <el-form ref="form" :model="role" label-width="100px">
+            <el-form-item label="名称">
+                <el-input v-model="role.name"></el-input>
+            </el-form-item>
+            <el-form-item label="描述">
+                <el-input type="textarea" v-model="role.desc"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="save">保存</el-button>
+                <el-button type="danger">取消</el-button>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
 </template>
 
 <script type="text/javascript">
@@ -25,6 +40,8 @@
     export default {
         data() {
             return {
+                dialogVisible: false,
+                role: {},
                 roleList: [{}]
             }
         },
@@ -34,8 +51,11 @@
             }).catch(response => Common.postCallback(response));
         },
         methods: {
+            view() {
+                this.dialogVisible = true;
+            },
             save() {
-
+                this.$http.post("/roles", role).then((response) => Common.postCallback(response));
             },
             del(id) {
                 this.$confirm("确定要删除该角色", "提示", {
