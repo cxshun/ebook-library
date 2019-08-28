@@ -16,22 +16,22 @@
                 </el-table-column>
             </el-table>
         </el-col>
-    </el-row>
 
-    <el-dialog :visible.sync="dialogVisible">
-        <el-form ref="form" :model="role" label-width="100px">
-            <el-form-item label="名称">
-                <el-input v-model="role.name"></el-input>
-            </el-form-item>
-            <el-form-item label="描述">
-                <el-input type="textarea" v-model="role.desc"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="save">保存</el-button>
-                <el-button type="danger">取消</el-button>
-            </el-form-item>
-        </el-form>
-    </el-dialog>
+        <el-dialog :visible.sync="dialogVisible">
+            <el-form ref="form" :model="role" label-width="100px">
+                <el-form-item label="名称">
+                    <el-input v-model="role.name"></el-input>
+                </el-form-item>
+                <el-form-item label="描述">
+                    <el-input type="textarea" v-model="role.desc"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="save">保存</el-button>
+                    <el-button type="danger">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+    </el-row>
 </template>
 
 <script type="text/javascript">

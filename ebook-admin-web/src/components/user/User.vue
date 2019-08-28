@@ -58,9 +58,7 @@
             }
         },
         mounted() {
-            this.$http.get(Common.url + '/admin/users').then((response) => {
-                this.userList = response.data.data.list;
-            }).catch(response => Common.postCallback(response));
+            this.refresh();
         },
         methods: {
             activate(id, operationType) {
@@ -75,7 +73,10 @@
                     cancelButtonText: "取消",
                     type: "warning"
                 }).then(() => {
-                    this.$http.delete(Common.url + "/admin/users/" + id).then((response => Common.postCallback(response)));
+                    this.$http.delete(Common.url + "/admin/users/" + id).then((response => {
+                        Common.postCallback(response);
+                        this.refresh();
+                    }));
                 }).catch(() => {})
             },
             view() {
@@ -87,7 +88,15 @@
                     name: user.name,
                     password: user.password,
                     email: user.email
-                }).then((response => Common.postCallback(response)))
+                }).then((response => {
+                    Common.postCallback(response);
+                    this.dialogVisible = false;
+                }))
+            },
+            refresh() {
+                this.$http.get(Common.url + '/admin/users').then((response) => {
+                    this.userList = response.data.data.list;
+                }).catch(response => Common.postCallback(response));
             }
         }
     }
