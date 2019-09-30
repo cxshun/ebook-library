@@ -74,10 +74,20 @@ public class UserController {
     }
 
     /**
+     * 获取用户详情
+     * @param id    用户ID
+     * @return  用户信息
+     */
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public User get(@PathVariable("id") Long id) {
+        return userService.getById(id);
+    }
+
+    /**
      * 激活/禁用用户
      * @param activateUserReq   请求信息
      */
-    @PostMapping(value = "/activate/{id}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/activate",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void activate(@RequestBody ActivateUserReq activateUserReq) {
         User user = new User();
         user.setUpdateTime(new Date());

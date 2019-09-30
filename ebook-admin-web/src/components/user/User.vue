@@ -62,16 +62,14 @@
             }
         },
         mounted() {
-            this.$http.get(Common.url + '/admin/users').then((response) => {
-                this.userList = response.data.data.list;
-            }).catch(response => Common.postCallback(response));
+            this.refresh();
         },
         methods: {
             activate(id, operationType) {
                 this.$http.post(Common.url + "/admin/users/activate", {
                     id: id,
                     operationType: operationType
-                }).then(response => Common.postCallback(response));
+                }).then(response => { this.refresh();});
             },
             del(id) {
                 this.$confirm("确定要删除该用户吗?", "提示", {
@@ -79,11 +77,16 @@
                     cancelButtonText: "取消",
                     type: "warning"
                 }).then(() => {
-                    this.$http.delete(Common.url + "/admin/users/" + id).then((response => Common.postCallback(response)));
+                    this.$http.delete(Common.url + "/admin/users/" + id).then((response => {
+                        this.refresh();
+                    }));
                 }).catch(() => {})
             },
-            view() {
-                this.dialogVisible = true;
+            view(id) {
+                this.$http.get(Common.url + "/admin/users/" + id).then((response) => {
+                    this.user = response.data.data;
+                    this.dialogVisible = true;
+                });
             },
             save() {
                 let user = this.user;
@@ -91,7 +94,15 @@
                     name: user.name,
                     password: user.password,
                     email: user.email
-                }).then((response => Common.postCallback(response)))
+                }).then((response => {
+                    this.dialogVisible = false;
+                    this.refresh();
+                }))
+            },
+            refresh() {
+                this.$http.get(Common.url + '/admin/users').then((response) => {
+                    this.userList = response.data.data.list;
+                }).catch(response => {});
             }
         }
     }

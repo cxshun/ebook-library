@@ -2,6 +2,7 @@
  * http请求callback处理
  * @param response  http响应体
  */
+
 export default {
     postCallback(response, notify) {
         if (parseInt(response.data.code) !== 200) {
@@ -18,5 +19,5 @@ export default {
             })
         }
     },
-    url: "http://localhost:8080"
+    url: "http://localhost:8080",
 };
