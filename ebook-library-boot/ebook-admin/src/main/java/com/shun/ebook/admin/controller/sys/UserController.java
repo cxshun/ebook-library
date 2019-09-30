@@ -1,11 +1,11 @@
-package com.shun.ebook.admin.controller;
+package com.shun.ebook.admin.controller.sys;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.shun.ebook.admin.controller.dto.common.BaseListResp;
-import com.shun.ebook.admin.controller.dto.user.ActivateUserReq;
-import com.shun.ebook.admin.controller.dto.user.AddUserReq;
-import com.shun.ebook.admin.controller.dto.user.UpdateUserReq;
+import com.shun.ebook.admin.controller.sys.dto.common.BaseListResp;
+import com.shun.ebook.admin.controller.sys.dto.user.ActivateUserReq;
+import com.shun.ebook.admin.controller.sys.dto.user.AddUserReq;
+import com.shun.ebook.admin.controller.sys.dto.user.UpdateUserReq;
 import com.shun.ebook.common.PageInfo;
 import com.shun.ebook.common.constant.GlobalConstant;
 import com.shun.ebook.user.entity.User;

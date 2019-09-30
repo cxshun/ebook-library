@@ -1,10 +1,10 @@
-package com.shun.ebook.admin.controller;
+package com.shun.ebook.admin.controller.sys;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.shun.ebook.admin.controller.dto.common.BaseListResp;
-import com.shun.ebook.admin.controller.dto.privilege.AddPrivilegeReq;
-import com.shun.ebook.admin.controller.dto.privilege.UpdatePrivilegeReq;
+import com.shun.ebook.admin.controller.sys.dto.common.BaseListResp;
+import com.shun.ebook.admin.controller.sys.dto.privilege.AddPrivilegeReq;
+import com.shun.ebook.admin.controller.sys.dto.privilege.UpdatePrivilegeReq;
 import com.shun.ebook.common.PageInfo;
 import com.shun.ebook.common.constant.GlobalConstant;
 import com.shun.ebook.user.entity.Privilege;
@@ -46,7 +46,7 @@ public class PrivilegeController {
      * 更新权限信息
      * @param updatePrivilegeReq    权限实体
      */
-    @PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void update(@RequestBody UpdatePrivilegeReq updatePrivilegeReq) {
         Privilege privilege = new Privilege();
         BeanUtils.copyProperties(updatePrivilegeReq, privilege);
@@ -62,8 +62,8 @@ public class PrivilegeController {
      * @return  权限信息列表
      */
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public BaseListResp<Privilege> list(@RequestParam("page") Integer page,
-                                        @RequestParam("pageSize") Integer pageSize) {
+    public BaseListResp<Privilege> list(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                        @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize) {
         Page<Privilege> pager = privilegeService.list(new QueryWrapper<>(), page, pageSize);
 
         return new BaseListResp<>(pager.getRecords(), new PageInfo(pager.getTotal(), page, pageSize));
@@ -76,6 +76,16 @@ public class PrivilegeController {
     @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void delete(@PathVariable("id") Long id) {
         privilegeService.delete(id);
+    }
+
+    /**
+     * 获取权限信息
+     * @param id    权限ID
+     * @return  权限信息
+     */
+    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Privilege get(@PathVariable("id") Long id) {
+        return privilegeService.getById(id);
     }
 
 }

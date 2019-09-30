@@ -1,4 +1,4 @@
-package com.shun.ebook.admin.controller.dto.privilege;
+package com.shun.ebook.admin.controller.sys.dto.privilege;
 
 import lombok.Data;
 

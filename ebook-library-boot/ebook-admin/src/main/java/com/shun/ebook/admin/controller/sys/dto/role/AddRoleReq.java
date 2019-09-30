@@ -1,4 +1,4 @@
-package com.shun.ebook.admin.controller.dto.user;
+package com.shun.ebook.admin.controller.sys.dto.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,16 +6,20 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author cxshun@gmail.com
- * 2019-08-08 14-49
+ * 2019-09-30 11-13
  **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserReq {
+public class AddRoleReq {
 
-    private Long id;
+    /**
+     * 角色名称
+     */
     private String name;
-    private String email;
-    private String password;
+    /**
+     * 角色描述
+     */
+    private String desc;
 
 }

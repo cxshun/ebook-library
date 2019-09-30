@@ -34,7 +34,7 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="save()">保存</el-button>
+                <el-button type="primary" @click="save()">保存</el-button>
                 <el-button @click="dialogVisible = false">取消</el-button>
             </div>
         </el-dialog>
@@ -48,7 +48,11 @@
         data() {
             return {
                 userList: [{}],
-                user: {},
+                user: {
+                    "name": "",
+                    "password": "",
+                    "email": ""
+                },
                 dialogVisible: false,
                 rules: {
                     name: [{required: true, message: '请输入用户名', trigger: blur}],

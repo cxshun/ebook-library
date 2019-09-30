@@ -1,4 +1,4 @@
-package com.shun.ebook.admin.controller.dto.common;
+package com.shun.ebook.admin.controller.sys.dto.common;
 
 import com.shun.ebook.common.PageInfo;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.shun.ebook.admin.controller.dto.user;
+package com.shun.ebook.admin.controller.sys.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

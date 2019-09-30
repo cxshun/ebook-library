@@ -1,9 +1,6 @@
 package com.shun.ebook.user.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -29,6 +26,7 @@ public class Role {
     /**
      * 描述
      */
+    @TableField("`desc`")
     private String desc;
     /**
      * 创建时间
