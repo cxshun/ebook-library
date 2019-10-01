@@ -4,7 +4,7 @@
  */
 
 export default {
-    postCallback(response, notify) {
+    postCallback(response, notify, callback) {
         if (parseInt(response.data.code) !== 200) {
             notify({
                 title: '提示',
@@ -16,7 +16,10 @@ export default {
                 title: '提示',
                 message: '操作成功',
                 duration: 3000
-            })
+            });
+            if (callback !== undefined) {
+                callback();
+            }
         }
     },
     url: "http://localhost:8080",

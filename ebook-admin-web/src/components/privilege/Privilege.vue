@@ -19,7 +19,7 @@
         </el-col>
 
         <!-- 保存/修改对话框 -->
-        <el-dialog title="修改权限" :visible.sync="dialogVisible">
+        <el-dialog title="修改权限" :visible.sync="dialogVisible" :before-close="clear">
             <el-form ref="privilege" :model="privilege" label-with="100%">
                 <el-form-item label="名称">
                     <el-input v-model="privilege.name" auto-complete="off" clearable placeholder="请输入名称"></el-input>
@@ -29,15 +29,15 @@
                 </el-form-item>
                 <el-form-item label="类型">
                     <el-radio-group v-model="privilege.type">
-                        <el-radio :label="1" v-model="privilege.type">页面</el-radio>
-                        <el-radio :label="2" v-model="privilege.type">操作点</el-radio>
+                        <el-radio :label="1">页面</el-radio>
+                        <el-radio :label="2">操作点</el-radio>
                     </el-radio-group>
                 </el-form-item>
             </el-form>
 
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="save">保存</el-button>
-                <el-button type="danger" @click="dialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="save()">保存</el-button>
+                <el-button type="danger" @click="clear()">取消</el-button>
             </div>
         </el-dialog>
     </el-row>
@@ -59,22 +59,47 @@
             }
         },
         mounted() {
-            this.$http.get(Common.url + "/admin/privileges").then((response) => {
-                this.privilegeList = response.data.data.list;
-            }).catch(response => Common.postCallback(response, this.$notify));
+            this.refresh();
         },
         methods : {
+            clear() {
+                this.dialogVisible = false;
+                this.privilege = {}
+            },
             view(id) {
                 this.$http.get(Common.url + "/admin/privileges/" + id)
                     .then(response => this.privilege = response.data.data)
                     .catch((response) => Common.postCallback(response, this.$notify));
                 this.dialogVisible = true;
             },
-            del(id) {
-                this.$http.delete(Common.url + "/admin/privileges/" + id).then((response) => Common.postCallback(response, this.$notify));
-            },
             save() {
-                this.$http.post(Common.url + "/admin/privileges/", this.privilege).then((response) => Common.postCallback(response, this.$notify));
+                if (this.privilege.id !== undefined) {
+                    this.update();
+                } else {
+                    this.$http.post(Common.url + "/admin/privileges/", this.privilege)
+                        .then(response => {
+                            this.dialogVisible = false;
+                            this.refresh();
+                        })
+                }
+            },
+            update() {
+                this.$http.put(Common.url + "/admin/privileges/", this.privilege)
+                    .then(response => {
+                        this.dialogVisible = false;
+                        this.refresh();
+                    })
+            },
+            del(id) {
+                this.$http.delete(Common.url + "/admin/privileges/" + id)
+                    .then(response => {
+                        this.refresh();
+                    })
+            },
+            refresh() {
+                this.$http.get(Common.url + "/admin/privileges").then((response) => {
+                    this.privilegeList = response.data.data.list;
+                }).catch(response => Common.postCallback(response, this.$notify));
             }
         }
     }
