@@ -10,7 +10,7 @@
                 <el-table-column prop="desc" label="描述"></el-table-column>
                 <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
-                        <el-button @click="view" type="primary" size="small">编辑</el-button>
+                        <el-button @click="view(scope.row.id)" type="primary" size="small">编辑</el-button>
                         <el-button @click="del(scope.row.id)" type="danger" size="small">删除</el-button>
                     </template>
                 </el-table-column>
@@ -18,7 +18,7 @@
         </el-col>
 
         <el-dialog :visible.sync="dialogVisible">
-            <el-form ref="form" :model="role" label-width="100px">
+            <el-form ref="role" :model="role" label-width="100px">
                 <el-form-item label="名称">
                     <el-input v-model="role.name"></el-input>
                 </el-form-item>
@@ -26,8 +26,8 @@
                     <el-input type="textarea" v-model="role.desc"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="save">保存</el-button>
-                    <el-button type="danger">取消</el-button>
+                    <el-button type="primary" @click="save()">保存</el-button>
+                    <el-button type="danger" @click="clear()">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -46,16 +46,38 @@
             }
         },
         mounted() {
-            this.$http.get(Common.url + "/admin/roles").then((response) => {
-                this.roleList = response.data.data.list;
-            }).catch(response => Common.postCallback(response));
+            this.refresh();
         },
         methods: {
-            view() {
+            clear() {
+                this.role = {};
+                this.dialogVisible = false;
+            },
+            view(id) {
+                this.$http.get(Common.url + "/admin/roles/" + id)
+                    .then(response => this.role = response.data.data);
                 this.dialogVisible = true;
             },
             save() {
-                this.$http.post(Common.url + "/admin/roles", role).then((response) => Common.postCallback(response));
+                if (this.role.id !== undefined) {
+                    this.update();
+                } else {
+                    this.$http.post(Common.url + "/admin/roles", this.role)
+                        .then((response) => {
+                            this.dialogVisible = false;
+                            this.refresh();
+                        })
+                        .catch((response) => Common.postCallback(response, this.$notify, this.refresh));
+                }
+                this.clear();
+            },
+            update() {
+                this.$http.put(Common.url + "/admin/roles", this.role)
+                    .then(response => {
+                        this.dialogVisible = false;
+                        this.refresh();
+                    })
+                    .catch(response => Common.postCallback(response, this.$notify, this.refresh));
             },
             del(id) {
                 this.$confirm("确定要删除该角色", "提示", {
@@ -63,8 +85,18 @@
                     cancelButtonText: "取消",
                     type: "warning"
                 }).then(() => {
-                    this.$http.delete(Common.url + "/admin/roles/" + id).then(response => Common.postCallback(response));
+                    this.$http.delete(Common.url + "/admin/roles/" + id)
+                        .then(response => {
+                            this.dialogVisible = false;
+                            this.refresh();
+                        })
+                        .response(response => Common.postCallback(response, this.$notify, this.refresh));
                 });
+            },
+            refresh() {
+                this.$http.get(Common.url + "/admin/roles").then((response) => {
+                    this.roleList = response.data.data.list;
+                }).catch(response => Common.postCallback(response));
             }
         }
     }

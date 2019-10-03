@@ -69,7 +69,7 @@
                 this.$http.post(Common.url + "/admin/users/activate", {
                     id: id,
                     operationType: operationType
-                }).then(response => { this.refresh();});
+                }).then(response => this.refresh());
             },
             del(id) {
                 this.$confirm("确定要删除该用户吗?", "提示", {

@@ -91,10 +91,16 @@
                     })
             },
             del(id) {
-                this.$http.delete(Common.url + "/admin/privileges/" + id)
-                    .then(response => {
-                        this.refresh();
-                    })
+                this.$confirm("确定要删除该权限", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonTExt: "取消",
+                    type: "warning"
+                }).then(() =>
+                    this.$http.delete(Common.url + "/admin/privileges/" + id)
+                        .then(response => {
+                            this.refresh();
+                        })
+                )
             },
             refresh() {
                 this.$http.get(Common.url + "/admin/privileges").then((response) => {
