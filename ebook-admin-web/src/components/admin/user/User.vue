@@ -1,6 +1,6 @@
 <template>
-    <el-row :gutter="20">
-        <el-col :span="1" :offset="19">
+    <el-row :gutter="22">
+        <el-col :span="1" :offset="21">
             <el-button type="primary" size="large" @click="dialogVisible = true">添加用户</el-button>
         </el-col>
         <el-col>
@@ -8,7 +8,12 @@
                 <el-table-column prop="id" label="ID" width="100"></el-table-column>
                 <el-table-column prop="name" label="姓名"></el-table-column>
                 <el-table-column prop="email" label="邮箱"></el-table-column>
-                <el-table-column prop="isActive" label="是否有效" width="100"></el-table-column>
+                <el-table-column prop="isActive" label="是否有效" width="100">
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.isActive === 1">有效</span>
+                        <span v-else>无效</span>
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作" width="250">
                     <template slot-scope="scope">
                         <el-button @click="view(scope.row.id)" type="primary" size="small">编辑</el-button>
@@ -41,8 +46,9 @@
     </el-row>
 </template>
 
+
 <script type="text/javascript">
-    import Common from '../../common/common';
+    import Common from '../../../common/common';
 
     export default {
         data() {

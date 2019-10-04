@@ -1,6 +1,6 @@
 <template>
-    <el-row :gutter="20">
-        <el-col :span="1" :offset="19">
+    <el-row :gutter="22">
+        <el-col :span="1" :offset="21">
             <el-button type="primary" size="large" @click="dialogVisible = true">添加权限</el-button>
         </el-col>
         <el-col>
@@ -44,7 +44,7 @@
 </template>
 
 <script type="text/javascript">
-    import Common from "../../common/common";
+    import Common from "../../../common/common";
 
     export default {
         data() {

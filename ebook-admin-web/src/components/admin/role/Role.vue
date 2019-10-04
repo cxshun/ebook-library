@@ -1,7 +1,7 @@
 <template>
-    <el-row :gutter="20">
-        <el-col :span="1" :offset="19">
-            <el-button type="primary" size="large" @click="dialogVisible = true">添加用户</el-button>
+    <el-row :gutter="22">
+        <el-col :span="1" :offset="21">
+            <el-button type="primary" size="large" @click="dialogVisible = true">添加角色</el-button>
         </el-col>
         <el-col>
             <el-table :data="roleList" stripe border empty-text="暂无数据" style="width: 100%">
@@ -35,7 +35,7 @@
 </template>
 
 <script type="text/javascript">
-    import Common from "../../common/common";
+    import Common from "../../../common/common";
 
     export default {
         data() {
